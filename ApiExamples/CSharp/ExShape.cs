@@ -329,6 +329,46 @@ namespace ApiExamples
         }
 
         [Test]
+        public void OfficeMathDisplayException()
+        {
+            Document doc = new Document(MyDir + "Shape.OfficeMath.docx");
+
+            OfficeMath officeMath = (OfficeMath)doc.GetChild(NodeType.OfficeMath, 0, true);
+            officeMath.DisplayType = OfficeMathDisplayType.Display;
+            
+            Assert.That(() => officeMath.Justification = OfficeMathJustification.Inline, Throws.TypeOf<ArgumentException>());
+        }
+
+        [Test]
+        public void OfficeMathDefaultValue()
+        {
+            Document doc = new Document(MyDir + "Shape.OfficeMath.docx");
+
+            OfficeMath officeMath = (OfficeMath)doc.GetChild(NodeType.OfficeMath, 0, true);
+
+            Assert.AreEqual(OfficeMathDisplayType.Display, officeMath.DisplayType);
+            Assert.AreEqual(OfficeMathJustification.Center, officeMath.Justification);
+        }
+
+        [Test]
+        public void OfficeMathDisplayGold()
+        {
+            Document doc = new Document(MyDir + "Shape.OfficeMath.docx");
+
+            OfficeMath officeMath = (OfficeMath)doc.GetChild(NodeType.OfficeMath, 0, true);
+            officeMath.DisplayType = OfficeMathDisplayType.Display;
+            officeMath.Justification = OfficeMathJustification.Left;
+
+            doc.Save(MyDir + @"Artifacts\Shape.OfficeMath.docx");
+        }
+
+        [Test]
+        public void OfficeMathDisplayNested()
+        {
+            
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void AspectRatioLocked(bool isLocked)

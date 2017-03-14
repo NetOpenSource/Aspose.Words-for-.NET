@@ -143,6 +143,26 @@ namespace ApiExamples
         }
 
         [Test]
+        public void FieldLocale()
+        {
+            //ExStart
+            //ExFor:Field.LocaleId
+            //ExSummary: Get or sets locale for fields
+            Document doc = new Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            Field field = builder.InsertField(@"DATE \* MERGEFORMAT");
+            field.LocaleId = 2064;
+
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            Field newField = doc.Range.Fields[0];
+            Assert.AreEqual(2064, newField.LocaleId);
+            //ExEnd
+        }
+
+        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void GetFieldCode(bool nestedFields)
