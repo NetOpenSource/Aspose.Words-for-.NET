@@ -365,7 +365,15 @@ namespace ApiExamples
         [Test]
         public void OfficeMathDisplayNested()
         {
-            
+            Document doc = new Document(MyDir + "Shape.NestedOfficeMath.docx");
+
+            OfficeMath officeMath = (OfficeMath)doc.GetChild(NodeType.OfficeMath, 0, true);
+
+            //Always inline
+            Assert.AreEqual(OfficeMathDisplayType.Inline, officeMath.DisplayType);
+            Assert.AreEqual(OfficeMathJustification.Inline, officeMath.Justification);
+
+            //Bug?:When we change displayed type, there is no exception
         }
 
         [Test]
