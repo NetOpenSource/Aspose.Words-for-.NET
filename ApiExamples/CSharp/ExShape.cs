@@ -359,7 +359,9 @@ namespace ApiExamples
             officeMath.DisplayType = OfficeMathDisplayType.Display;
             officeMath.Justification = OfficeMathJustification.Left;
 
-            doc.Save(MyDir + @"Artifacts\Shape.OfficeMath.docx");
+            doc.Save(MyDir + @"Artifacts\Shape.OfficeMath Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"Artifacts\Shape.OfficeMath Out.docx", MyDir + @"\Golds\Shape.OfficeMath Gold.docx"));
         }
 
         [Test]
@@ -374,6 +376,20 @@ namespace ApiExamples
             Assert.AreEqual(OfficeMathJustification.Inline, officeMath.Justification);
 
             //Bug?:When we change displayed type, there is no exception
+        }
+
+        [Test]
+        [TestCase(0, MathObjectType.OMathPara)]
+        [TestCase(1, MathObjectType.OMath)]
+        [TestCase(2, MathObjectType.Supercript)]
+        [TestCase(3, MathObjectType.Argument)]
+        [TestCase(4, MathObjectType.SuperscriptPart)]
+        public void WorkWithMathObjectType(int a, MathObjectType objectType)
+        {
+            Document doc = new Document(MyDir + "Shape.OfficeMath.docx");
+
+            OfficeMath officeMath = (OfficeMath)doc.GetChild(NodeType.OfficeMath, a, true);
+            Assert.AreEqual(objectType, officeMath.MathObjectType);
         }
 
         [Test]

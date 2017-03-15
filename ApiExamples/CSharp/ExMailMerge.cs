@@ -466,6 +466,12 @@ namespace ApiExamples
             }
         }
 
+        [Test]
+        public void CleanupOptions()
+        {
+            Document doc = new Document(MyDir + "MailMerge.RegionsByName.doc");
+        }
+
         private class MailMergeCallbackStub : IMailMergeCallback
         {
             public void TagsReplaced()
