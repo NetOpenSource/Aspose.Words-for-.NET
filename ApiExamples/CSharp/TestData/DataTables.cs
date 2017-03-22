@@ -1,12 +1,9 @@
-﻿using System;
-
-namespace ApiExamples.TestData
+﻿namespace ApiExamples.TestData
 {
     internal static class DataTables
     {
         internal static DataSet AddClientsTestData()
         {
-            Random rnd = new Random();
             DataSet ds = new DataSet();
 
             int age = 30;
@@ -35,5 +32,11 @@ namespace ApiExamples.TestData
 
             return ds;
         }
+    }
+}
+namespace ApiExamples.TestData
+{
+    partial class DataSet
+    {
     }
 }

@@ -6,8 +6,10 @@
 //////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Security.Cryptography.X509Certificates;
 using ApiExamples.TestData;
 using Aspose.Words;
 using Aspose.Words.Drawing;
@@ -76,6 +78,19 @@ namespace ApiExamples
             doc.Save(MyDir + @"\Artifacts\ReportingEngine.TestDataTable Out.docx");
 
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.TestDataTable Out.docx", MyDir + @"\Golds\ReportingEngine.TestDataTable Gold.docx"));
+        }
+
+        [Test]
+        public void ProgressiveTotal()
+        {
+            Document doc = new Document(MyDir + "ReportingEngine.Total.docx");
+
+            DataSet ds = DataTables.AddClientsTestData();
+            BuildReport(doc, ds, "ds");
+
+            doc.Save(MyDir + @"\Artifacts\ReportingEngine.Total Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.Total Out.docx", MyDir + @"\Golds\ReportingEngine.Total Gold.docx"));
         }
 
         [Test]
@@ -199,7 +214,7 @@ namespace ApiExamples
         [Test]
         public void InsertDocumentDinamically()
         {
-            //By stream
+            // By stream
             Document template = DocumentHelper.CreateSimpleDocument("<<doc [src.DocumentByStream]>>");
 
             DocumentDataSource docStream = new DocumentDataSource(new FileStream(this._doc, FileMode.Open, FileAccess.Read));
@@ -209,7 +224,7 @@ namespace ApiExamples
 
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertDocumentDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by stream");
 
-            //By doc
+            // By doc
             template = DocumentHelper.CreateSimpleDocument("<<doc [src.Document]>>");
 
             DocumentDataSource docByDoc = new DocumentDataSource(new Document(MyDir + "ReportingEngine.TestDataTable.docx"));
@@ -219,7 +234,7 @@ namespace ApiExamples
 
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertDocumentDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by document");
 
-            //By uri
+            // By uri
             template = DocumentHelper.CreateSimpleDocument("<<doc [src.DocumentByUri]>>");
 
             DocumentDataSource docByUri = new DocumentDataSource("http://www.sample-videos.com/doc/Sample-doc-file-100kb.doc");
@@ -229,7 +244,7 @@ namespace ApiExamples
 
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertDocumentDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertDocumentDinamically(uri) Gold.docx"), "Fail inserting document by uri");
 
-            //By byte
+            // By byte
             template = DocumentHelper.CreateSimpleDocument("<<doc [src.DocumentByByte]>>");
 
             DocumentDataSource docByByte = new DocumentDataSource(File.ReadAllBytes(MyDir + "ReportingEngine.TestDataTable.docx"));
@@ -243,7 +258,7 @@ namespace ApiExamples
         [Test]
         public void InsertImageDinamically()
         {
-            //By stream
+            // By stream
             Document template = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Stream]>>", ShapeType.TextBox);
             ImageDataSource docByStream = new ImageDataSource(new FileStream(this._image, FileMode.Open, FileAccess.Read));
 
@@ -252,7 +267,7 @@ namespace ApiExamples
 
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertImageDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by bytes");
 
-            //By image
+            // By image
             template = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Image]>>", ShapeType.TextBox);
             ImageDataSource docByImg = new ImageDataSource(Image.FromFile(this._image, true));
 
@@ -261,7 +276,7 @@ namespace ApiExamples
 
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertImageDinamically(stream,doc,bytes) Gold.docx"), "Fail inserting document by bytes");
 
-            //By Uri
+            // By Uri
             template = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Uri]>>", ShapeType.TextBox);
             ImageDataSource docByUri = new ImageDataSource("http://joomla-aspose.dynabic.com/templates/aspose/App_Themes/V3/images/customers/americanexpress.png");
 
@@ -270,7 +285,7 @@ namespace ApiExamples
 
             Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.InsertImageDinamically Out.docx", MyDir + @"\Golds\ReportingEngine.InsertImageDinamically(uri) Gold.docx"), "Fail inserting document by bytes");
 
-            //By bytes
+            // By bytes
             template = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Bytes]>>", ShapeType.TextBox);
             ImageDataSource docByBytes = new ImageDataSource(File.ReadAllBytes(this._image));
 
@@ -336,7 +351,7 @@ namespace ApiExamples
                 // Assert that the image is really insert in textbox 
                 Assert.IsTrue(shape.ImageData.HasImage);
 
-                //Assert that width is keeped and height is changed
+                // Assert that width is keeped and height is changed
                 Assert.AreNotEqual(346.35, shape.Height);
                 Assert.AreEqual(431.5, shape.Width);
             }
@@ -365,7 +380,7 @@ namespace ApiExamples
                 // Assert that the image is really insert in textbox and 
                 Assert.IsTrue(shape.ImageData.HasImage);
 
-                //Assert that height is keeped and width is changed
+                // Assert that height is keeped and width is changed
                 Assert.AreNotEqual(431.5, shape.Width);
                 Assert.AreEqual(346.35, shape.Height);
             }
@@ -394,9 +409,38 @@ namespace ApiExamples
                 // Assert that the image is really insert in textbox 
                 Assert.IsTrue(shape.ImageData.HasImage);
 
-                //Assert that height is changed and width is changed
+                // Assert that height is changed and width is changed
                 Assert.AreNotEqual(346.35, shape.Height);
                 Assert.AreNotEqual(431.5, shape.Width);
+            }
+
+            dstStream.Dispose();
+        }
+
+        [Test]
+        public void StretchImagefitSizeLim()
+        {
+            Document doc = DocumentHelper.CreateTemplateDocumentWithDrawObjects("<<image [src.Stream] -fitSizeLim>>", ShapeType.TextBox);
+
+            ImageDataSource imageStream = new ImageDataSource(new FileStream(this._image, FileMode.Open, FileAccess.Read));
+
+            BuildReport(doc, imageStream, "src", ReportBuildOptions.None);
+
+            MemoryStream dstStream = new MemoryStream();
+            doc.Save(dstStream, SaveFormat.Docx);
+
+            doc = new Document(dstStream);
+
+            NodeCollection shapes = doc.GetChildNodes(NodeType.Shape, true);
+
+            foreach (Shape shape in shapes)
+            {
+                // Assert that the image is really insert in textbox 
+                Assert.IsTrue(shape.ImageData.HasImage);
+
+                // Assert that textbox size are equal image size
+                Assert.AreEqual(346.35, shape.Height);
+                Assert.AreEqual(258.54, shape.Width);
             }
 
             dstStream.Dispose();
@@ -426,6 +470,23 @@ namespace ApiExamples
 
             //Assert that build report success with "ReportBuildOptions.AllowMissingMembers"
             Assert.AreEqual(ControlChar.ParagraphBreak + ControlChar.ParagraphBreak + ControlChar.SectionBreak, builder.Document.GetText());
+        }
+
+        [Test]
+        public void SetBackgroundColor()
+        {
+            Document doc = new Document(MyDir + "ReportingEngine.BackColor.docx");
+
+            List<Colors> colors = new List<Colors>();
+            colors.Add(new Colors { Color = Color.Black, ColorName = "Black", Description = "Black color" });
+            colors.Add(new Colors { Color = Color.FromArgb(255, 0, 0), ColorName = "Red", Description = "Red color" });
+            colors.Add(new Colors { Color = Color.Empty, ColorName = "Empty", Description = "Empty color" });
+
+            BuildReport(doc, colors, "colors");
+
+            doc.Save(MyDir + @"\Artifacts\ReportingEngine.BackColor Out.docx");
+
+            Assert.IsTrue(DocumentHelper.CompareDocs(MyDir + @"\Artifacts\ReportingEngine.BackColor Out.docx", MyDir + @"\Golds\ReportingEngine.BackColor Gold.docx"));
         }
 
         private static void BuildReport(Document document, object dataSource, string dataSourceName, ReportBuildOptions reportBuildOptions)

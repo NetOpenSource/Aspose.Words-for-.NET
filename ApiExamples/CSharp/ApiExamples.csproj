@@ -123,6 +123,7 @@
     <Compile Include="ExTabStopCollection.cs" />
     <Compile Include="ExVariableCollection.cs" />
     <Compile Include="ExWarningInfoCollection.cs" />
+    <Compile Include="TestData\Colors.cs" />
     <Compile Include="TestData\NumericDataSourceWithMethod.cs" />
     <Compile Include="TestData\DocumentDataSource.cs" />
     <Compile Include="TestData\DataTables.cs">
