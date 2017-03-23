@@ -36,7 +36,7 @@ namespace ApiExamples
             Document doc = new Document(MyDir + "MailMerge.ExecuteArray.doc");
 
             // Fill the fields in the document with user data.
-            doc.MailMerge.Execute(new string[] { "FullName", "Company", "Address", "Address2", "City" }, new object[] { "James Bond", "MI5 Headquarters", "Milbank", "", "London" });
+            doc.MailMerge.Execute(new string[] { "FullName", "Company", "Address", "Address2", "City" }, new object[] { "James Bond", "MI5 Headquarters", "Milbank", string.Empty, "London" });
 
             // Send the document in Word format to the client browser with an option to save to disk or open inside the current browser.
             Assert.That(() => doc.Save(Response, @"\Artifacts\MailMerge.ExecuteArray.doc", ContentDisposition.Inline, null), Throws.TypeOf<ArgumentNullException>()); //Thrown because HttpResponse is null in the test.
@@ -469,7 +469,37 @@ namespace ApiExamples
         [Test]
         public void CleanupOptions()
         {
-            Document doc = new Document(MyDir + "MailMerge.RegionsByName.doc");
+            Document doc = new Document(MyDir + "MailMerge.CleanUp.docx");
+
+            DataTable data = GetDataTable();
+
+            doc.MailMerge.CleanupOptions = MailMergeCleanupOptions.RemoveEmptyTableRows;
+            doc.MailMerge.ExecuteWithRegions(data);
+
+            doc.Save(MyDir + @"\Artifacts\MailMerge.CleanUp Out.docx");
+        }
+
+        /// <summary>
+        /// Create DataTable and fill it with data.
+        /// In real life this DataTable should be filled from a database.
+        /// </summary>
+        private static DataTable GetDataTable()
+        {
+            DataTable dataTable = new DataTable("StudentCourse");
+            dataTable.Columns.Add("CourseName");
+
+            DataRow dataRowEmpty = dataTable.NewRow();
+            dataTable.Rows.Add(dataRowEmpty);
+            dataRowEmpty[0] = string.Empty;
+
+            for (int i = 0; i < 10; i++)
+            {
+                DataRow datarow = dataTable.NewRow();
+                dataTable.Rows.Add(datarow);
+                datarow[0] = "Course " + i.ToString();
+            }
+
+            return dataTable;
         }
 
         private class MailMergeCallbackStub : IMailMergeCallback
