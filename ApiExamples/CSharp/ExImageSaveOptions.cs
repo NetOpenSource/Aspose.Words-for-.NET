@@ -27,7 +27,6 @@ namespace ApiExamples
             //ExEnd
         }
 
-        //ToDo: Need to check gold test
         [Test]
         public void SaveIntoGif()
         {

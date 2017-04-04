@@ -341,8 +341,6 @@ namespace ApiExamples
             //ExEnd
         }
 
-        //ToDo: Add gold asserts
-        //For assert this test you need to open "MathML.docx" and "MathML.pdf" and check, that mathml code are render as "a 1 + b 1"
         [Test]
         public void InsertMathMl()
         {
@@ -353,8 +351,11 @@ namespace ApiExamples
 
             builder.InsertHtml(MathMl);
 
-            doc.Save(MyDir + @"\Artifacts\MathML.docx");
-            doc.Save(MyDir + @"\Artifacts\MathML.pdf");
+            doc.Save(MyDir + @"\Artifacts\MathML Out.docx");
+            doc.Save(MyDir + @"\Artifacts\MathML Out.pdf");
+
+            DocumentHelper.CompareDocs(MyDir + @"\Golds\MathML Gold.docx", MyDir + @"\Artifacts\MathML Out.docx");
+            DocumentHelper.ComparePdf(MyDir + @"\Golds\MathML Gold.pdf", MyDir + @"\Artifacts\MathML Out.pdf");
         }
 
         [Test]
@@ -1957,12 +1958,12 @@ namespace ApiExamples
 
             Image representingImage = Image.FromFile(MyDir + @"\Images\Aspose.Words.gif");
 
-            Shape oleObject = builder.InsertOleObject(MyDir + "Document.Spreadsheet.xlsx", false, false, representingImage);
-            Shape oleObjectProgId = builder.InsertOleObject("http://www.aspose.com", "htmlfile", true, true, null);
+            //Shape oleObject = builder.InsertOleObject(MyDir + "Document.Spreadsheet.xlsx", false, false, representingImage);
+            Shape oleObjectProgId = builder.InsertOleObject("http://www.aspose.com", "htmlfile", true, true, representingImage);
 
             // Double click on the image in the .doc to see the spreadsheet.
             // Double click on the icon in the .doc to see the html.
-            doc.Save(MyDir + @"\Artifacts\Document.InsertedOleObject.doc");
+            doc.Save(MyDir + "Document.InsertedOleObject.doc");
             //ExEnd
 
             //ToDo: There is some bug, need more info for this (breaking html link)

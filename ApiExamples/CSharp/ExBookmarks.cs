@@ -105,6 +105,7 @@ namespace ApiExamples
             //ExFor:BookmarkCollection.RemoveAt
             //ExSummary:Demonstrates different methods of removing bookmarks from a document.
             Document doc = new Document(MyDir + "Bookmarks.doc");
+            
             // Remove a particular bookmark from the document.
             Aspose.Words.Bookmark bookmark = doc.Range.Bookmarks[0];
             doc.Range.Bookmarks.Remove(bookmark);

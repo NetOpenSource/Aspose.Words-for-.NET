@@ -13,7 +13,6 @@ using NUnit.Framework;
 
 namespace ApiExamples
 {
-    //ToDo: Need to add golds
     [TestFixture]
     internal class ExHtmlFixedSaveOptions : ApiExampleBase
     {
@@ -30,7 +29,7 @@ namespace ApiExamples
 
             //Create "HtmlFixedSaveOptions" with "Encoding" parameter
             //You can also set "Encoding" using System.Text.Encoding, like "Encoding.ASCII", or "Encoding.GetEncoding()"
-            HtmlFixedSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions { Encoding = new ASCIIEncoding(), SaveFormat = SaveFormat.HtmlFixed, };
+            HtmlFixedSaveOptions htmlFixedSaveOptions = new HtmlFixedSaveOptions { Encoding = new ASCIIEncoding(), SaveFormat = SaveFormat.HtmlFixed };
 
             //Uses "HtmlFixedSaveOptions"
             doc.Save(MyDir + @"\Artifacts\UseEncoding.html", htmlFixedSaveOptions);

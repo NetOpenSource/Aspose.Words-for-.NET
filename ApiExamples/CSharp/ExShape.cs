@@ -384,11 +384,11 @@ namespace ApiExamples
         [TestCase(2, MathObjectType.Supercript)]
         [TestCase(3, MathObjectType.Argument)]
         [TestCase(4, MathObjectType.SuperscriptPart)]
-        public void WorkWithMathObjectType(int a, MathObjectType objectType)
+        public void WorkWithMathObjectType(int index, MathObjectType objectType)
         {
             Document doc = new Document(MyDir + "Shape.OfficeMath.docx");
 
-            OfficeMath officeMath = (OfficeMath)doc.GetChild(NodeType.OfficeMath, a, true);
+            OfficeMath officeMath = (OfficeMath)doc.GetChild(NodeType.OfficeMath, index, true);
             Assert.AreEqual(objectType, officeMath.MathObjectType);
         }
 

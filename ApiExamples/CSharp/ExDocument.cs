@@ -884,7 +884,7 @@ namespace ApiExamples
             //ExEnd
         }
 
-        //This is for obfuscation bug WORDSNET-13036
+        //WORDSNET-13036
         [Test]
         public void SignDocument()
         {
@@ -1545,8 +1545,6 @@ namespace ApiExamples
             //ExEnd
         }
 
-        //ToDo: add gold assert
-        //For assert this test you need to open "HyphenationOptions OUT.docx" and check that hyphen are added in the end of the first line
         [Test]
         public void HyphenationOptions()
         {
@@ -1567,7 +1565,10 @@ namespace ApiExamples
             Assert.AreEqual(720, doc.HyphenationOptions.HyphenationZone);
             Assert.AreEqual(true, doc.HyphenationOptions.HyphenateCaps);
 
-            doc.Save(MyDir + @"\Artifacts\HyphenationOptions.docx");
+            doc.Save(MyDir + @"\Artifacts\HyphenationOptions Out.docx");
+
+            DocumentHelper.CompareDocs(MyDir + @"\Artifacts\HyphenationOptions Out.docx",
+                MyDir + @"\Golds\HyphenationOptions Gold.docx");
         }
 
         [Test]
