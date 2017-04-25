@@ -555,7 +555,7 @@ namespace ApiExamples
         }
 
         [Test]
-        public void createThumbnails()
+        public void CreateThumbnails()
         {
             //ExStart
             //ExFor:Document.RenderToScale
