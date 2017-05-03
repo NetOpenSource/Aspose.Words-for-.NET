@@ -6,6 +6,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 using System;
+using System.Collections;
 using System.Drawing;
 using System.IO;
 using Aspose.Words;
@@ -2094,6 +2095,64 @@ namespace ApiExamples
 
             doc.Save(MyDir + @"\Artifacts\Document.InsertedField.doc");
             //ExEnd
+        }
+
+        [Test]
+        public void InsertCustomFormattingField()
+        {
+            DocumentBuilder builder = new DocumentBuilder();
+            Document document = builder.Document;
+
+            Field field = builder.InsertField("-78365 432,19 \\# \"### ### ###.000\"", null);
+            document.FieldOptions.ResultFormatter = new FieldResultFormatter("[{0}]", null);
+
+            field.Update();
+            ////Assert.AreEqual("[-1234567.89]", field.Result);
+            document.Save(MyDir + "123.docx");
+        }
+
+        private class FieldResultFormatter : IFieldResultFormatter
+        {
+            public FieldResultFormatter(string numberFormat, string dateFormat)
+            {
+                mNumberFormat = numberFormat;
+                mDateFormat = dateFormat;
+            }
+
+            public override string FormatNumeric(double value, string format)
+            {
+                mNumberFormatInvocations.Add(new object[] { value, format });
+
+                return string.IsNullOrEmpty(mNumberFormat)
+                    ? null
+                    : string.Format(mNumberFormat, value);
+            }
+
+            public override string FormatDateTime(DateTime value, string format, CalendarType calendarType)
+            {
+                mDateFormatInvocations.Add(new object[] { value, format, calendarType });
+
+                return string.IsNullOrEmpty(mDateFormat)
+                    ? null
+                    : string.Format(mDateFormat, value);
+            }
+
+            public override string Format(string value, GeneralFormat format)
+            {
+                throw new NotImplementedException();
+            }
+
+            public override string Format(double value, GeneralFormat format)
+            {
+                throw new NotImplementedException();
+            }
+
+            private readonly string mNumberFormat;
+            private readonly string mDateFormat;
+
+            private readonly ArrayList mNumberFormatInvocations = new ArrayList();
+            private readonly ArrayList mDateFormatInvocations = new ArrayList();
+            private IFieldResultFormatter fieldResultFormatterImplementation;
         }
     }
 }
