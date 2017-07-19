@@ -27,6 +27,7 @@ using System.Linq;
 using System.Text;
 using LINQ = Aspose.Words.Examples.CSharp.LINQ;
 using QucikStart = Aspose.Words.Examples.CSharp.Quick_Start;
+using Aspose.Words.Examples.CSharp.Programming_Documents.Working_with_StructuredDocumentTag;
 
 namespace Aspose.Words.Examples.CSharp
 {
@@ -196,6 +197,9 @@ namespace Aspose.Words.Examples.CSharp
             // ConvertFieldsInParagraph.Run();
             // ChangeLocale.Run();
             // UpdateDocFields.Run();
+            // SpecifylocaleAtFieldlevel.Run();
+            // UseOfficeMathProperties.Run();
+
             // InsertField.Run();
             // InsertMergeFieldUsingDOM.Run();
             // InsertMailMergeAddressBlockFieldUsingDOM.Run();
@@ -209,6 +213,8 @@ namespace Aspose.Words.Examples.CSharp
             // RenameMergeFields.Run();
             // ChangeFieldUpdateCultureSource.Run();
             // GetFieldNames.Run();
+            //InsertTOAFieldWithoutDocumentBuilder.Run();
+            //InsertIncludeFieldWithoutDocumentBuilder.Run();
 
             //// Images
             //// =====================================================
@@ -256,7 +262,8 @@ namespace Aspose.Words.Examples.CSharp
 
             //// Tables
             //// =====================================================
-            // AutoFitTableToWindow.Run();
+            //AutoFitTableToWindow.Run();
+            //BuildTableFromDataTable.Run();
             // AutoFitTableToContents.Run();
             // AutoFitTableToFixedColumnWidths.Run();
             // InsertTableUsingDocumentBuilder.Run();
@@ -284,6 +291,9 @@ namespace Aspose.Words.Examples.CSharp
             // CloneSection.Run();
             // CopySection.Run();
 
+            //// StructuredDocumentTag 
+            //// =====================================================
+            //BindSDTtoCustomXmlPart.Run();
 
             //// =====================================================
             //// =====================================================
@@ -306,6 +316,7 @@ namespace Aspose.Words.Examples.CSharp
             // MailMergeUsingMustacheSyntax.Run();
             // ExecuteWithRegionsDataTable.Run();
             // NestedMailMergeCustom.Run();            
+            // RemoveRowsFromTable.Run();
 
             //// =====================================================
             //// =====================================================
@@ -353,6 +364,7 @@ namespace Aspose.Words.Examples.CSharp
             // ScatterChart.Run();
             // BubbleChart.Run();
             // ChartWithFilteringGroupingOrdering.Run();
+            //ConditionalBlocks.Run();
 
             // Stop before exiting
             Console.WriteLine("\n\nProgram Finished. Press any key to exit....");
@@ -399,6 +411,12 @@ namespace Aspose.Words.Examples.CSharp
         {
             return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/Document/");
         }
+
+        public static String GetDataDir_WorkingWithShapes()
+        {
+            return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/Shapes/");
+        }
+        
         public static String GetDataDir_WorkingWithFields()
         {
             return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/Fields/");
@@ -426,6 +444,11 @@ namespace Aspose.Words.Examples.CSharp
         public static String GetDataDir_WorkingWithRanges()
         {
             return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/Ranges/");
+        }
+
+        public static String GetDataDir_WorkingWithStructuredDocumentTag()
+        {
+            return Path.GetFullPath(GetDataDir_Data() + "Programming-Documents/StructuredDocumentTag/");
         }
         public static String GetDataDir_WorkingWithImages()
         {
