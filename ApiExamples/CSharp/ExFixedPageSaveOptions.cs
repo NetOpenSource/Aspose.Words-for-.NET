@@ -47,7 +47,7 @@ namespace ApiExamples
 
         [Test]
         [Ignore("Bug?")]
-        [TestCaseSource(nameof(FixedPageSaveOptionsDefaultValuesData))]
+        [TestCaseSource("FixedPageSaveOptionsDefaultValuesData")]
         public void FixedPageSaveOptionsDefaultValues(FixedPageSaveOptions objectSaveOptions)
         {
             FixedPageSaveOptions saveOptions = objectSaveOptions;
@@ -64,7 +64,7 @@ namespace ApiExamples
         }
 
         [Test]
-        [TestCaseSource(nameof(FixedPageSaveOptionsData))]
+        [TestCaseSource("FixedPageSaveOptionsData")]
         public void SaveInFixedFormat(FixedPageSaveOptions objectSaveOptions, int jpegQuality, NumeralFormat numeralFormat, int pageCount, int pageIndex, EmfPlusDualRenderingMode emfPlusDualRenderingMode, bool emulateRasterOperations, MetafileRenderingMode metafileRendering, bool useEmfEmbeddedToWmf, bool optimizeOutput)
         {
             FixedPageSaveOptions saveOptions = objectSaveOptions;

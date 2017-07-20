@@ -5,11 +5,9 @@
 // "as is", without warranty of any kind, either expressed or implied.
 //////////////////////////////////////////////////////////////////////////
 
-using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using Aspose.Words;
-using Aspose.Words.Model.Saving;
 using Aspose.Words.Saving;
 using NUnit.Framework;
 
